@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "fund-raising";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="div0" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h2>Introduction to raising funds as a Startup</h2>
+				</div>
+			</div>
+		</div>
+		<div id="div1" class="page">
+			<div class="contentstruct">
+				<div class="content">
+		             @Html.Partial("map")
+				</div>
+			</div>
+		</div>
+		<div id="div2" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h2>What are your biggest challenges while fund raising:</h2>
+					<form action="demo_form.asp" id="usrform">
+					  <textarea rows="15" cols="75" name="comment" form="usrform">
+					Enter text here...</textarea>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div3" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h1>Questions answered by other Startups</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div4" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					@Html.Partial("discussion")
+				</div>
+			</div>
+		</div>
+		
+		<div id="div5" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h3>Help content on how to use this portal</h3>
+				</div>
+			</div>
+		</div>
+

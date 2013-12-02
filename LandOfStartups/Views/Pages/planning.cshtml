@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "planning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="div0" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<p>It is traditional wisdom to start a new venture with a business plan. However, the process of planning starts long before you have written even a single sentence of the business plan. There are several aspects of the idea that you need to research and find some amount of data on, before you start writing a business plan. Some of them are - </p>
+					<img src="images/business_plan.png"></img>
+					<p>A couple of great resources to help you start your journey - </p>
+					<ul>
+					<li><a href="https://www.udacity.com/course/ep245">How to Build a Startup - Udacity</a></li>
+					<li><a href="https://www.coursera.org/course/startup">Startup Engineering - Coursera</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="div1" class="page">
+			<div class="contentstruct">
+				<div class="content">
+					@Html.Partial("map")
+				</div>
+			</div>
+		</div>
+		<div id="div2" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h4>How did you start planning your company?</h4>
+					<form id="usrform">
+					  <p>
+						My idea for the company <span onclick="strike(['startOpt2'],['startOpt1'])" id="startOpt1"><u>I'm starting</u></span>/<span onclick="strike(['startOpt1'],['startOpt2'])" id="startOpt2"><u>I've started</u></span> 
+						is <textarea rows="1" cols="140" name="comment" form="usrform">
+					</textarea>
+					  </p>
+					  <p>
+						I came up with this idea when <textarea rows="1" cols="140" name="comment" form="usrform">
+					</textarea>
+					  </p>
+					  <p>
+					  This is really exciting because <textarea rows="1" cols="140" name="comment" form="usrform">
+					</textarea>
+					  </p>
+					  <input type="submit" value="Submit"/>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div3" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<div id="questionAccordian">
+						<h5>When did you come up with the idea for the company?</h5>
+						<div>
+							<b>
+								<a href="http://dreamflightadventures.com/">Dreamflight Adventures</a>
+							</b>
+							<p>
+								It was an idea I had since I was a kid. I wasnted to build something awesome for people to come in and have an adventure together. The idea went through many versions, before it reached this version in schools. 
+							</p>
+						</div>
+						<h5>How did writing the Business Plan help you?</h5>
+						<div>
+							<b>
+								<a href="http://dreamflightadventures.com/">Dreamflight Adventures</a>
+							</b>
+							<p>
+								Dream Filght Adventures, writing a version of the business plan showed that if it was a separate venture, the cost of rent and labor was very high to make it profitable. Unlike a movie theatre and arcades, the throughput of the experience is very low - 6 per showing/hour whereas in a movie theatre, it is over 200 per showing/hour.
+								Knowing these issues, the entrepreneur can either choose to ignore it and go ahead with the exact same idea or choose not to work on this at all. However, the better option is to come up with creative ways of resolving these issues. In case of Dream Flight Adventures, the creative way of handling this was to work with schools, by increasing the educational content of the experience. Schools provided the space to setup the simulator and have staff at hand to help run the simulator. 
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div4" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					@Html.Partial("discussion")
+				</div>
+			</div>
+		</div>
+		
+		<div id="div5" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h3>Help content on how to use this portal</h3>
+				</div>
+			</div>
+		</div>

@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "marketing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="div0" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h2>What is your approach to Marketing and Sales? </h2>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div1" class="page">
+			<div class="contentstruct">
+				<div class="content">
+					@Html.Partial("map")
+				</div>
+			</div>
+		</div>
+		<div id="div2" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h2>Describe your company:</h2>
+					<form action="demo_form.asp" id="usrform">
+					  <textarea rows="15" cols="75" name="comment" form="usrform">
+					Enter text here...</textarea>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div3" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<h1>Questions answered by other Startups</h1>
+				</div>
+			</div>
+		</div>
+		
+		<div id="div4" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					@Html.Partial("discussion")
+				</div>
+			</div>
+		</div>
+		
+		<div id="div5" class="page">
+		<div class="contentstruct">
+				<div class="content">
+					<iframe class="discussFrame" src="discuss.html" align="middle" seamless></iframe>
+				</div>
+			</div>
+		</div>

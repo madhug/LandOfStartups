@@ -1,0 +1,46 @@
+nav
+{
+	color:white;
+	text-align:center;
+	width:40%
+	float:left;
+	z-index:10;
+}
+
+ul#menu, ul#menu ul.sub-menu {
+    padding:0;
+    margin: 0;
+	z-index:10;
+}
+ul#menu li, ul#menu ul.sub-menu li {
+    list-style-type: none;
+    display: inline-block;
+	z-index:10;
+}
+/*Link Appearance*/
+ul#menu li a, ul#menu li ul.sub-menu li a {
+    text-decoration: none;
+    color: #fff;
+    background: #666;
+    padding: 5px;
+    display:inline-block;
+	z-index:10;
+}
+/*Make the parent of sub-menu relative*/
+ul#menu li {
+    position: relative;
+	z-index:10;
+}
+/*sub menu*/
+ul#menu li ul.sub-menu {
+    display:none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100px;
+	z-index:10;
+}
+ul#menu li:hover ul.sub-menu {
+    display:block;
+	z-index:10;
+}
