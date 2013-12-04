@@ -22,9 +22,9 @@ namespace LandOfStartups
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "439746336124977",
+                appSecret: "b44d3c0facdb5479219995dd92191c35");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
