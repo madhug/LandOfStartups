@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace backendServer.Controllers
 {
-    public class HomeController : Controller
+    public class AdminController : Controller
     {
         public ActionResult Index()
         {
