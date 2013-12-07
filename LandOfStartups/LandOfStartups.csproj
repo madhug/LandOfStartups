@@ -190,6 +190,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201312051011547_InitialCreate.cs" />
+    <Compile Include="Migrations\201312051011547_InitialCreate.Designer.cs">
+      <DependentUpon>201312051011547_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DataModels.cs" />
     <Compile Include="Models\LandOfStartupsContext.cs" />
@@ -295,7 +300,9 @@
     <Content Include="styles\vader\images\ui-icons_f29a00_256x240.png" />
     <Content Include="styles\vader\jquery-ui-1.10.3.custom.css" />
     <Content Include="styles\vader\jquery-ui-1.10.3.custom.min.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -356,6 +363,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201312051011547_InitialCreate.resx">
+      <DependentUpon>201312051011547_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
