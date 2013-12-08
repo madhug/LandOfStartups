@@ -18,5 +18,7 @@ namespace LandOfStartups.Models
         }
 
         public DbSet<Page> Pages { get; set; }
+
+        public DbSet<Information> Information { get; set; }
     }
 }

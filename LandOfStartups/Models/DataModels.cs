@@ -22,8 +22,9 @@ namespace LandOfStartups.Models
         [Key]
         public int informationID { get; set; }
         public string text { get; set; }
+        public string title { get; set; }
         public List<string> references { get; set; }
-
+        public virtual int pageID { get; set; }
         public virtual Page page { get; set; }
     }
 
@@ -43,7 +44,7 @@ namespace LandOfStartups.Models
         public int questionID { get; set; }
         public string  text { get; set; }
         public virtual Page page { get; set; }
-
+        public virtual int pageID { get; set; }
         public ICollection<Answer> answers { get; set; }
     }
 
@@ -52,7 +53,11 @@ namespace LandOfStartups.Models
         [Key]
         public int answerID { get; set; }
         public string text { get; set; }
-        public Question question { get; set; }
-        public Startup startup { get; set; }
+
+        public virtual Question question { get; set; }
+        public virtual Startup startup { get; set; }
+
+        public virtual int questionID { get; set; }
+        public virtual int startupID { get; set; }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model LandOfStartups.Models.Information
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_GeneralLayout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Information</legend>
+
+        @Html.HiddenFor(model => model.informationID)
+
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.title)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.text)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.text)
+            @Html.ValidationMessageFor(model => model.text)
+        </div>
+
+         <div class="editor-label">
+            Page
+        </div>
+
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.page.pageID,(SelectList)ViewBag.PageID)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

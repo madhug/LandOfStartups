@@ -184,6 +184,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\PageAdminController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -357,6 +358,11 @@
     <Content Include="Views\PageAdmin\Create.cshtml" />
     <Content Include="Views\PageAdmin\Edit.cshtml" />
     <Content Include="Views\PageAdmin\Delete.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\Information\Details.cshtml" />
+    <Content Include="Views\Information\Create.cshtml" />
+    <Content Include="Views\Information\Edit.cshtml" />
+    <Content Include="Views\Information\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
