@@ -199,6 +199,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DataModels.cs" />
     <Compile Include="Models\LandOfStartupsContext.cs" />
+    <Compile Include="Models\ViewDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

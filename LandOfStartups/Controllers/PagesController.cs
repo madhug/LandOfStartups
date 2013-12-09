@@ -1,52 +1,627 @@
-﻿using System;
+﻿using LandOfStartups.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+
 
 namespace LandOfStartups.Controllers
 {
     public class PagesController : Controller
     {
+        private LandOfStartupsContext db = new LandOfStartupsContext();
 
         public ActionResult growth()
         {
-            return View();
+            //db = new LandOfStartupsContext();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+            //db.
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;                       
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Growth"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Growth"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+                ua.userID = currentUser;
+                List<Answer> ansQuery = db.Answers.ToList();
+                ua.answer = (from a in db.Answers
+                             where a.userID == currentUser && a.questionID == pageQuestions[i].questionID
+                             select a.text).FirstOrDefault();
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
         }
 
         public ActionResult fundraising()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Fundraising"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Fundraising"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult team()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Team"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Team"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult planning()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            // dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Planning"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Planning"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult technologies()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Technologies"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Technologies"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult marketing()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Marketing"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Marketing"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult legalities()
         {
-            return View();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            //dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Legalities"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Legalities"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         public ActionResult intro()
         {
-            return View();
+            //db = new LandOfStartupsContext();
+            MembershipUser user = Membership.GetUser(User.Identity.Name);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            int currentUser = (int)user.ProviderUserKey;
+            Session["currentUser"] = currentUser;
+
+            ViewDataModel dm = new Models.ViewDataModel();
+
+            // dm.userID = currentUser;
+
+            dm.pageID = (from p in db.Pages
+                         where p.name == "Introduction"
+                         select p.pageID).FirstOrDefault();
+
+            var posts = from p in db.Information
+                        where p.page.name == "Introduction"
+                        select p;
+
+            var questions = from q in db.Questions
+                            where q.pageID == dm.pageID
+                            select q;
+
+            List<Question> pageQuestions = questions.ToList();
+            dm.publicAnswers = new List<Models.QuestionPublicAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                QuestionPublicAnswer qpa = new QuestionPublicAnswer();
+                qpa.question = pageQuestions[i].text;
+                qpa.answers = new List<Models.StartupAnswer>();
+                if (pageQuestions[i].answers != null)
+                {
+                    foreach (Answer ans in pageQuestions[i].answers)
+                    {
+                        if (ans.isPublic == true)
+                        {
+                            StartupAnswer sa = new Models.StartupAnswer();
+                            sa.answer = ans.text;
+                            sa.userName = User.Identity.Name;
+                            qpa.answers.Add(sa);
+                        }
+                    }
+                }
+                else
+                {
+                    StartupAnswer sa = new Models.StartupAnswer();
+                    sa.answer = "No one has answered yet. Be the first one to answer!";
+                    sa.userName = User.Identity.Name;
+                    qpa.answers.Add(sa);
+                }
+                dm.publicAnswers.Add(qpa);
+            }
+
+            dm.userAnswers = new List<Models.UserAnswer>();
+            for (int i = 0; i < pageQuestions.Count; i++)
+            {
+                UserAnswer ua = new UserAnswer();
+                ua.isPublic = true;
+
+                ua.questionID = pageQuestions[i].questionID;
+                ua.question = pageQuestions[i].text;
+
+                /*ua.answer = (from a in db.Answer
+                                where a.userID == dm.userID && a.questionID == pageQuestions[i].questionID
+                                select a.text).FirstOrDefault();*/
+                dm.userAnswers.Add(ua);
+            }
+            dm.pageInformation = posts.ToList();
+            return View(dm);
+
         }
 
         //

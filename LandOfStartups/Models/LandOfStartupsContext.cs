@@ -20,5 +20,9 @@ namespace LandOfStartups.Models
         public DbSet<Page> Pages { get; set; }
 
         public DbSet<Information> Information { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+
+        public DbSet<Answer> Answers { get; set; }
     }
 }

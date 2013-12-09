@@ -6,7 +6,7 @@ using System.Web;
 
 namespace LandOfStartups.Models
 {
-    public class Startup
+    /*public class Startup
     {
         [Key]
         public int startupID { get; set; }
@@ -15,7 +15,7 @@ namespace LandOfStartups.Models
         public string link { get; set; }
 
         public virtual ICollection<Answer> answers { get; set; }
-    }
+    }*/
 
     public class Information
     {
@@ -53,11 +53,9 @@ namespace LandOfStartups.Models
         [Key]
         public int answerID { get; set; }
         public string text { get; set; }
-
+        public bool isPublic { get; set; }
+        public int userID { get; set; }
         public virtual Question question { get; set; }
-        public virtual Startup startup { get; set; }
-
         public virtual int questionID { get; set; }
-        public virtual int startupID { get; set; }
     }
 }

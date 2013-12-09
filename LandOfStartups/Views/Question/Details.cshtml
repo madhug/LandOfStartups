@@ -1,0 +1,29 @@
+﻿@model LandOfStartups.Models.Question
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Question</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.text)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.text)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.page.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.page.name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.questionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
