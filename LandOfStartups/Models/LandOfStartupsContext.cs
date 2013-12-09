@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using LandOfStartups.Migrations;
+using System.Data.Entity;
 
 namespace LandOfStartups.Models
 {
@@ -24,5 +25,10 @@ namespace LandOfStartups.Models
         public DbSet<Question> Questions { get; set; }
 
         public DbSet<Answer> Answers { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LandOfStartupsContext, Configuration>());
+        }
     }
 }
